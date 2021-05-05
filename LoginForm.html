@@ -1,0 +1,172 @@
+
+<html>
+
+    <head>
+
+        <style>
+    
+            input {
+              width: 100%;
+              padding: 12px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              box-sizing: border-box;
+              margin-top: 6px;
+              margin-bottom: 16px;
+            }
+    
+            input[type=submit] {
+              background-color: #1d04aa;
+              color: white;
+              width:80px;
+            }
+    
+            .container {
+              background-color: #f1f1f1;
+              padding: 40px;
+              max-width: 600px;
+              margin: auto;
+            }
+    
+            #message {
+              display:none;
+              background: #fffefe;
+              color: #000;
+              position: relative;
+              padding: 20px;
+              margin-top: 10px;
+              max-width: 600px;
+            }
+            
+            #message p {
+              padding: 1px 1px;
+              font-size: 18px;
+            }
+    
+            .valid {
+              color: green;
+            }
+            
+            .valid:before {
+              position: relative;
+              content: "✔";
+            }
+    
+            .invalid {
+              color: red;
+            }
+            
+            .invalid:before {
+              position: relative;
+              content: "-";
+            }
+        </style>
+    
+    </head>
+
+    <body>
+
+        <h3>Login Form Validation</h3>
+        
+        <div id="message">
+            <h3>Password must satisfy the following conditions:</h3>
+            <p id="letter" class="invalid">  1 lowercase letter</p>
+            <p id="capital" class="invalid"> 1 capital (uppercase) letter</p>
+            <p id="number" class="invalid"> 1 numeric value</p>
+            <p id="length" class="invalid"> Must Contain alteast 8 characters</b></p>
+          </div>
+
+        <div class="container" >
+          <form >
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passsword must contain at least one numeric, one uppercase, one lowercase letter and should contains at least 8 characters" required>
+            
+            <input type="submit" id="SubmitBtn" value="Submit">
+          </form>
+        </div>
+                        
+        <script>
+
+            var PasswordInput = document.getElementById("password");
+            var letter = document.getElementById("letter");
+            var capital = document.getElementById("capital");
+            var number = document.getElementById("number");
+            var length = document.getElementById("length");
+            var SubmitBtn = document.getElementById("SubmitBtn");
+            var isvalidPassword=false;
+
+            SubmitBtn.onclick = function(){
+                if(isvalidPassword){
+                    alert("Login Successfully....")
+                }
+            }
+            
+            PasswordInput.onfocus = function() {
+                document.getElementById("message").style.display = "block";
+            }
+
+
+            PasswordInput.onkeyup = function() {
+                // Validate lowercase condition
+                var lowerCaseLetters = /[a-z]/g;
+
+                if(PasswordInput.value.match(lowerCaseLetters)) 
+                {  
+                    letter.classList.remove("invalid");
+                    letter.classList.add("valid");
+                    isvalidPassword=true;
+                } else {
+                    letter.classList.remove("valid");
+                    letter.classList.add("invalid");
+                    isvalidPassword=false;
+                }
+                
+                // Validate Uppercase condition
+                var upperCaseLetters = /[A-Z]/g;
+
+                if(PasswordInput.value.match(upperCaseLetters)) 
+                {  
+                    capital.classList.remove("invalid");
+                    capital.classList.add("valid");
+                    isvalidPassword=true;
+                } else {
+                    capital.classList.remove("valid");
+                    capital.classList.add("invalid");
+                    isvalidPassword=false;
+                }
+            
+                // Validate numerics condittion
+                var numbers = /[0-9]/g;
+
+                if(PasswordInput.value.match(numbers)) 
+                {  
+                    number.classList.remove("invalid");
+                    number.classList.add("valid");
+                    isvalidPassword=true;
+                } else {
+                    number.classList.remove("valid");
+                    number.classList.add("invalid");
+                    isvalidPassword=false;
+                }
+                
+                // Validate length of the password condition
+                if(PasswordInput.value.length >= 8) 
+                {
+                    length.classList.remove("invalid");
+                    length.classList.add("valid");
+                    isvalidPassword=true;
+                } else {
+                    length.classList.remove("valid");
+                    length.classList.add("invalid");
+                    isvalidPassword=false;
+                }
+
+            }
+        </script>
+        
+    </body>
+
+</html>
